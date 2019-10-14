@@ -21,10 +21,12 @@ public class MyFirstTestCase {
 			WebDriver driver = new FirefoxDriver();
 
 			driver.get("https://wordpress.com/");
-			WebElement loginBtn = 
+			
 //					driver.findElement(By.className("login-link"));
 					driver.findElement(By.id("navbar-login-link"));
-			loginBtn.click();
+			
+			LoginClick(driver,"navbar-login-link");
+			/*loginBtn.click();*/
 
 			// Page 2 navigation starts after waiting for 2 seconds
 			System.out.println("Before 2 seconds");
@@ -36,13 +38,15 @@ public class MyFirstTestCase {
 					.visibilityOfElementLocated(By.xpath(inputElementXpath)));
 			System.out.println("inputElement: " + inputElement.toString());
 			if (inputElement != null)
-				inputElement.sendKeys("harshalpagar.hp@gmail.com"); // Checkpoint
+				inputElement.sendKeys("hdyhgfar.hp@gmail.com"); // Checkpoint
 
 			// TODO: Perform same for continue button
 			String continueElementXpath = "//button[@class='button form-button is-primary']";
+			
 			WebElement continueButtonElement = wait
 					.until(ExpectedConditions.visibilityOfElementLocated(By
 							.xpath(continueElementXpath)));
+			ContinueClick(driver,"//button[@class='button form-button is-primary']");
 			if (continueButtonElement != null)
 				continueButtonElement.click();
 
@@ -82,8 +86,7 @@ public class MyFirstTestCase {
 			 * driver.close(); driver.switchTo().window(parentWindow);
 			 */
 			Thread.sleep(200);
-			WebElement continueBtn = driver.findElement(By
-					.className("login__form-action"));
+			WebElement ContinueBtn = driver.findElement(By.className("login__form-action"));
 
 			clickComponentByClassname(driver, "login__form-terms");
 
@@ -92,16 +95,39 @@ public class MyFirstTestCase {
 		}
 
 	}
-
-	public static void clickComponentByClassname(WebDriver driver,
+	
+	//TODO : Create Methods here Suggest by sir..
+	
+	public static void ContinueClick(WebDriver driver,
 			String className) {
 		try {
-			WebElement webElement = driver.findElement(By
-					.className("login__form-action"));
+			WebElement webElement = driver.findElement(By.xpath("//button[@class='button form-button is-primary']"));
 			webElement.click();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
+	}
+	
+	public static void LoginClick(WebDriver driver,
+			String className) {
+		try {
+			WebElement webElement = driver.findElement(By.id(className));
+			webElement.click();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+
+	public static void clickComponentByClassname(WebDriver driver,
+			String className) {
+		try {
+			WebElement webElement = driver.findElement(By.className("login__form-action"));
+			webElement.click();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 	}
 }
