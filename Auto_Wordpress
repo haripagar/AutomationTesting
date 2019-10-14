@@ -1,0 +1,107 @@
+package firefoxscripts;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.seleniumhq.jetty9.util.log.Log;
+
+public class MyFirstTestCase {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		try {
+			System.setProperty("webdriver.gecko.driver",
+					"/home/harshal/Downloads/geckodriver");
+
+			WebDriver driver = new FirefoxDriver();
+
+			driver.get("https://wordpress.com/");
+			WebElement loginBtn = 
+//					driver.findElement(By.className("login-link"));
+					driver.findElement(By.id("navbar-login-link"));
+			loginBtn.click();
+
+			// Page 2 navigation starts after waiting for 2 seconds
+			System.out.println("Before 2 seconds");
+			WebDriverWait wait = new WebDriverWait(driver, 6000);
+			System.out.println("After 2 seconds");
+
+			String inputElementXpath = "//input[@id='usernameOrEmail']";
+			WebElement inputElement = wait.until(ExpectedConditions
+					.visibilityOfElementLocated(By.xpath(inputElementXpath)));
+			System.out.println("inputElement: " + inputElement.toString());
+			if (inputElement != null)
+				inputElement.sendKeys("harshalpagar.hp@gmail.com"); // Checkpoint
+
+			// TODO: Perform same for continue button
+			String continueElementXpath = "//button[@class='button form-button is-primary']";
+			WebElement continueButtonElement = wait
+					.until(ExpectedConditions.visibilityOfElementLocated(By
+							.xpath(continueElementXpath)));
+			if (continueButtonElement != null)
+				continueButtonElement.click();
+
+			// Previous working code directly going to 2nd page, finding element
+			// by Id
+			/*
+			 * inputElement = driver.findElement(By .name("usernameOrEmail"));
+			 */
+
+			/*
+			 * String parentWindow= driver.getWindowHandle();
+			 * 
+			 * @SuppressWarnings("unchecked") List<String> allWindows =
+			 * (List<String>) driver.getWindowHandles(); for(String curWindow :
+			 * allWindows){ driver.switchTo().window(curWindow); }
+			 */
+
+			// Done Part :
+
+			// driver = new FirefoxDriver();
+			//
+			// driver.get("https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fwordpress.com%2F");
+
+			// ContinueButton
+
+			// WebElement ContinueBtn =
+			// driver.findElement(By.className("social-buttons__button"));
+			// ContinueBtn.click();
+
+			// GotitButton
+
+			// WebElement GotitBtn =
+			// driver.findElement(By.className("gdpr-banner__acknowledge-button"));
+			// GotitBtn.click();
+
+			/*
+			 * driver.close(); driver.switchTo().window(parentWindow);
+			 */
+			Thread.sleep(200);
+			WebElement continueBtn = driver.findElement(By
+					.className("login__form-action"));
+
+			clickComponentByClassname(driver, "login__form-terms");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void clickComponentByClassname(WebDriver driver,
+			String className) {
+		try {
+			WebElement webElement = driver.findElement(By
+					.className("login__form-action"));
+			webElement.click();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
