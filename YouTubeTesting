@@ -1,0 +1,81 @@
+package firefoxscripts;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class YouTubeTesting 
+
+{
+	public static void main(String[] args) throws InterruptedException {
+
+		try {
+			System.setProperty("webdriver.gecko.driver",
+					"/home/harshal/Downloads/geckodriver");
+			WebDriver driver = new FirefoxDriver();
+
+			driver.get("https://www.youtube.com/");
+			
+			
+			//driver.findElement(By.id("search")).sendKeys("Tech Beats 90");
+			
+			
+			System.out.println("Before 2 seconds");
+			WebDriverWait wait = new WebDriverWait(driver, 6000);
+			System.out.println("After 2 seconds");
+			
+			String InSearch = "//input[@id='search']";
+			WebElement inputElement = wait.until(ExpectedConditions
+					.visibilityOfElementLocated(By.xpath(InSearch)));
+			System.out.println("inputElement: " + inputElement.toString());
+			if (inputElement != null)
+				inputElement.sendKeys("Tech Beats 90");
+			InSearch(driver,"search");
+			
+			
+String searchElementXpath = "//yt-icon[@class='style-scope ytd-searchbox']";
+			
+			WebElement SearchButtonElement = wait
+					.until(ExpectedConditions.visibilityOfElementLocated(By
+							.xpath(searchElementXpath)));
+			SearchClick(driver,searchElementXpath);
+			if (SearchButtonElement != null)
+				SearchButtonElement.click();
+		
+	} 
+	catch (Exception e) {
+		e.printStackTrace();
+	} 
+	}
+
+	private static void SearchClick(WebDriver driver, String searchElementXpath) {
+		{
+			try
+			{ WebElement webElement = driver.findElement(By.xpath(searchElementXpath));
+				webElement.click();
+			}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+			}
+	}
+
+	private static void InSearch(WebDriver driver, String classname) {
+		{
+			try {
+				WebElement webElement = driver.findElement(By.id(classname));
+				webElement.click();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+		
+	}
+	}
+
+		
+		
